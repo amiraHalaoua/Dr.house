@@ -36,6 +36,10 @@ angular.module('starter.controllers', ['ngMessages'])
            $state.go('creatUser');
         };
 
+        $scope.goListUser = function(){
+           $state.go('listUser');
+        };
+
         $scope.goMyRdv = function(){
            switch($scope.user.password.email){
                 case'admin@gmail.com':
@@ -53,7 +57,16 @@ angular.module('starter.controllers', ['ngMessages'])
 
 // controlleur de gestion des utilisateurs
 .controller('UserCtrl', function($scope, fireBaseData, $firebase, $state) {
-        $scope.creatUser = function(ref, civilite, nom, prenom, tel, em){
+
+           fireBaseData.ref().on("value", function(snapshot) {
+            $scope.users = snapshot.child('users').val();
+            $scope.nbUsers = Object.keys($scope.users).length;
+          }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+          });
+
+
+          $scope.creatUser = function(ref, civilite, nom, prenom, tel, em){
             var newUser = {
               email: em,
               password: nom,
@@ -88,12 +101,30 @@ angular.module('starter.controllers', ['ngMessages'])
                   }
                 }else{
                     newUser.id = userData.uid;
-                    return fireBaseData.usersRef().push(newUser);
+                    return fireBaseData.refUsers().push(newUser);
                 }
             }); 
         }
 
         
+        
+          $scope.getListUsers = function() {
+            console.log(fireBaseData.refData());
+            var users = fireBaseData.userData();
+            console.log(users);
+            users.forEach(function(idUser, user) {
+               console.log(idUser, user);
+            });
+
+          }
+
+          
+
+  
+        $scope.edit = function(item) {
+          alert('Edit Item: ' + item.id);
+        };
+
 })
 
 // controlleur de gestion des rdv

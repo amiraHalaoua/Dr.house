@@ -36,12 +36,35 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       //controller: 'CalendarCtrl'
     })
 
+    .state('listUser', {
+      url: "/list",
+      templateUrl: "templates/listUser.html",
+      controller: 'UserCtrl'
+    })
+
+// *********       menu secretaire      ****************
+    .state('app', {
+      url: "/app",
+      abstract: true,
+      templateUrl: "templates/secretaire.html",
+      //controller: 'AppCtrl'
+    })
+
     .state('creatUser', {
-      url: "/user",
+      url: "/addUser",
       templateUrl: "templates/createUser.html",
       controller: 'UserCtrl'
-    });
+    })
 
+    .state('app.listUser', {
+      url: "/listUser",
+      views: {
+        'menuContent' :{
+          templateUrl: "templates/listUser.html"
+        }
+      }
+    });
+// *****************************************************
 });
 
 

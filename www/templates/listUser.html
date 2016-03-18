@@ -1,0 +1,40 @@
+<!--
+<ion-view title="liste des utilisateurs">
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+  <ion-content class="has-header">testContent
+    <ion-list ng-controller="UserCtrl">
+      <ion-item ng-repeat="user in users">test
+	      <h2>{{user.title}</h2>
+	      <p>{{user.id}}</p>
+	      <ion-option-button class="button-assertive" ng-click="edit(user)">
+   		  </ion-option-button>
+   		
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
+
+-->
+
+<ion-view title="Liste des patients" ng-controller="UserCtrl">
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+  <ion-content>
+    <div class="item item-text-wrap">
+        <span class="rounded" >{{nbUsers}}</span> patients.
+
+       
+    </div>
+
+    <ion-list >
+      <ion-item ng-repeat="(idUser, user) in users" type="item-text-wrap">
+       	<h2>{{user.profile.civilite}} {{user.profile.nom}} {{user.profile.prenom}}</h2>
+	    <p>{{user.profile.prenom}}</</p>
+      </ion-item>
+    </ion-list>
+   
+  </ion-content>
+</ion-view>

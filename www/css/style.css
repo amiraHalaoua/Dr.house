@@ -43,4 +43,14 @@
     color:white;
 }
 
+.item-complex a:hover{
+    background-color: #EF473A !important;
+    color: white !important;
+}
 
+.menu-open ion-side-menu-content {
+    -webkit-transition: opacity 300ms ease-in-out;
+    transition: opacity 300ms ease-in-out;
+    opacity: 0.5;
+    background-color: #slategray;
+}
