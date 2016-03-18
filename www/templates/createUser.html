@@ -1,0 +1,38 @@
+
+<ion-view title="Se connecter">
+  <ion-content >
+    <form name="myNewUser">
+      <label class="item item-input">
+        <span class="input-label">Reference</span>
+        <input type="text" ng-model="ref"/>
+      </label>
+      <label class="item item-input item-select">
+        <span class="input-label">Civilité</span>
+        <select ng-model="civilite">
+          <option selected>Mr</option>
+          <option>Mme</option>
+          <option>Mlle</option>
+          <option>Enfant</option>
+        </select>
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Nom</span>
+        <input type="text" ng-model="nom"/>
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Prénom</span>
+        <input type="text" ng-model="prenom"/>
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Télèphone</span>
+        <input type="tel" ng-model="tel"/>
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Email</span>
+        <input type="text" ng-model="em"/>
+      </label>
+
+      <button class="button button-outline button-assertive" ng-click="creatUser(ref, civilite, nom, prenom, tel, em)">Valider</button>
+    </form>  
+  </ion-content>
+</ion-view>

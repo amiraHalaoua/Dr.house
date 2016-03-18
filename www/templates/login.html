@@ -1,0 +1,56 @@
+<ion-view title="Connectez-vous">
+  
+  <ion-nav-buttons side="right">
+      <button class="button ion-ios-alarm-outline" ng-click="goMyRdv()">
+          Mes rdv
+      </button>
+  </ion-nav-buttons>
+
+  <ion-content>
+    <div class="row">
+      <div class="col text-center">
+        <img src="img/logo.jpg" width:/>
+      </div>
+    </div>
+
+    <form name="connectForm" novalidate>
+      <div class="list list-inset" ng-show="showLoginForm">
+        <label class="item item-input">
+          <span class="input-label">Email</span>
+          <input class="form-control" type="text" ng-model="em" required/>
+        </label><br>
+
+        <label class="item item-input">
+          <span class="input-label">Password</span>
+          <input class="form-control" type="password" ng-model="pwd" required/>
+        </label>
+        <br>
+
+        <div class="row">
+          <div class="col text-center">
+            <button class="button button-outline button-assertive" ng-click="login(em, pwd)">
+              <span class="ion-unlocked"></span> Se connecter
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" ng-hide="showLoginForm">
+        <div class="item item-text-wrap">
+          <span class="ion-person">  {{user.password.email}}</span>
+        </div>
+      </div>
+      <br>
+
+      <div class="row">
+        <div class="col text-center">
+          <button class="button button-outline button-assertive" ng-click="logout()" ng-hide="showLoginForm">
+            <span class="ion-locked"></span> Se déconnecter
+          </button>
+        </div>
+      </div>
+    </form>
+    <button class="button button-positive" ng-click="goUser()">ajouter user</button>
+  </ion-content>
+</ion-view>
+ 

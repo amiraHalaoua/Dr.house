@@ -1,0 +1,15 @@
+<ion-view title="Mes RDV">
+  <ion-content>
+    <div class="item item-text-wrap">
+        Vous avez <span class="rounded">{{countRdv}}N</span> rendez-vous.
+    </div>
+
+    <ion-list>
+      <ion-item ng-repeat="rdv in rdvs" type="item-text-wrap">
+        <!--{{rdv.datetime}}
+        {{rdv.label}}-->
+      </ion-item>
+    </ion-list>
+   
+  </ion-content>
+</ion-view>
