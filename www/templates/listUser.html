@@ -28,11 +28,11 @@
 
        
     </div>
-
-    <ion-list >
+    <div ng-show="loading" class="loading"><span class="ui-icon ui-icon-loading spin">LOADING...</span></div>
+    <ion-list ng-show="!loading" >
       <ion-item ng-repeat="(idUser, user) in users" type="item-text-wrap">
        	<h2>{{user.profile.civilite}} {{user.profile.nom}} {{user.profile.prenom}}</h2>
-	    <p>{{user.profile.prenom}}</</p>
+	     <p>{{user.profile.prenom}}</p>
       </ion-item>
     </ion-list>
    

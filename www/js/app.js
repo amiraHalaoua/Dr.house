@@ -12,6 +12,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   });
 })
 
+.config(function($ionicConfigProvider) {
+    $ionicConfigProvider.tabs.position('bottom');
+})
+
 .config(function($stateProvider, $urlRouterProvider) {
 
   $urlRouterProvider.otherwise("/login");
@@ -27,7 +31,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     .state('rdvPatient', {
       url: "/rdvPatient",
       templateUrl: "templates/rdvPatient.html",
-      controller: 'RdvCtrl'   
+      controller: 'rdvCtrl'   
     })
 
     .state('secretaire', {
@@ -63,8 +67,28 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
           templateUrl: "templates/listUser.html"
         }
       }
-    });
-// *****************************************************
+    })
+
+//************ tabs ***********************
+
+    .state('logout', {
+      url: '/logout',
+      views: {
+        'logout': {
+          templateUrl: 'templates/login.html'
+        }
+      }
+    })
+
+    .state('tab.siteweb', {
+      url: '/siteWeb',
+      views: {
+        'tab-siteWeb': {
+          templateUrl: 'templates/tab-siteWeb.html'
+        }
+      }
+    })
+//*****************************************
 });
 
 
