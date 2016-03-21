@@ -1,17 +1,10 @@
-angular.module('starter.services', [])
+angular.module('starter.services', ['firebase'])
 
-.factory('fireBaseData', function($firebase) {
-
-  var ref       = new Firebase("https://dr-house.firebaseio.com/");
-  var refUsers  = new Firebase("https://dr-house.firebaseio.com/users");
-  ref.on("value", function(snapshot) {
-    ref.users = snapshot.child('users').val();
-    console.log(ref.users);
-  }, function (errorObject) {
-    console.log("The read failed: " + errorObject.code);
-  });
+.factory('fireBaseData', function($firebase, $rootScope) {
   
-  /*
+  var ref       = new Firebase("https://dr-house.firebaseio.com/");
+  var currentUser = {};
+/*
     usersRef.orderByChild("email").equalTo("test@gmail.com").on("child_added", function(snapshot) {
       console.log(snapshot.key());
     });
@@ -22,26 +15,29 @@ angular.module('starter.services', [])
     console.log("key: "+key);
   });
   });*/
+
  return {
     ref: function () {
       return ref;
     },
+
     key: function () {
       return key;
     },
-    //les données de la base
-    refData: function () {
-      return ref.users;
-    },
     
     // liste des profiles
-    refUsers: function () {
-      return  refUsers;
+    getUsers: function (user) {
+         return ref.child('users');
     },
-
-    rdvRef: function(){
-      return rdv;
+    setCurrentUser: function(user){
+      
+      currentUser = user;
+     
+      return true;
     },
+    getCurrentUser: function(){
+      return {user : currentUser};
+    }
 
   }
 });

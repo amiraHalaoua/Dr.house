@@ -13,22 +13,46 @@
       </div>
     </div>
 
-    <form name="connectForm" novalidate>
-      <div class="list list-inset" ng-show="showLoginForm">
-        <label class="item item-input">
-          <span class="input-label">Email</span>
-          <input class="form-control" type="text" ng-model="em" required/>
-        </label><br>
+    <p ng-hide="showErrorConnect" class="form-error">
+      <i class="ion-information-circled form-error"></i>  
+      Ces données ne correspond à aucun utilisateur
+    </p>
 
-        <label class="item item-input">
-          <span class="input-label">Password</span>
-          <input class="form-control" type="password" ng-model="pwd" required/>
+    <form name="signinForm" novalidate >
+      <div class="list list-inset" ng-show="showLoginForm">
+        <label class="item item-input" ng-class="{'has-error': signinForm.em.$invalid }">
+          <span class="input-label">Email</span>
+          <input class="form-control" type="text" name="em" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" ng-model="em" required/>
         </label>
+        <br>
+        <p ng-show="signinForm.em.$error.required" class="form-error">
+          <i class="ion-information-circled form-error"></i>  
+          Le champ "Email" est obligatoire
+        </p>
+        <p ng-show="signinForm.em.$invalid && !signinForm.em.$pristine" class="form-error">
+          <i class="ion-information-circled form-error"></i>  
+          Le champ "Email" est invalid (exemple@exemple.com)
+        </p>
+        <br>
+
+        <label class="item item-input" ng-class="{'has-error': signinForm.pwd.$invalid}">
+          <span class="input-label">Password</span>
+          <input class="form-control" type="password" name="pwd" ng-minlength="6" ng-model="pwd" required/>
+        </label>
+        <br>
+        <p ng-show="signinForm.pwd.$error.required" class="form-error">
+          <i class="ion-information-circled form-error"></i>  
+          Le champ "Mot de passe" est obligatoire
+        </p>
+        <p ng-show="signinForm.pwd.$error.minlength" class="form-error">
+          <i class="ion-information-circled form-error"></i>  
+          Le champ "Mot de passe" doit contenir au moins 6 caractères
+        </p>
         <br>
 
         <div class="row">
           <div class="col text-center">
-            <button class="button button-outline button-assertive" ng-click="login(em, pwd)">
+            <button class="button button-outline button-assertive" ng-disabled="signinForm.$invalid" ng-click="login(em, pwd)">
               <span class="ion-unlocked"></span> Se connecter
             </button>
           </div>
@@ -41,7 +65,7 @@
         </div>
       </div>
       <br>
-
+     
       <div class="row">
         <div class="col text-center">
           <button class="button button-outline button-assertive" ng-click="logout()" ng-hide="showLoginForm">

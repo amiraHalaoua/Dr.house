@@ -1,10 +1,11 @@
 angular.module('starter.controllers', ['ngMessages'])
 // controlleur d'authentification
-.controller('AccountCtrl', function($scope, fireBaseData, $firebase, $state) {
+.controller('AccountCtrl', function($scope, $rootScope, fireBaseData, $firebase, $state) {
       
         //Checking if user is logged in
         $scope.user = fireBaseData.ref().getAuth();
-
+        $scope.showErrorConnect = false;
+        
         if (!$scope.user) {
             $scope.showLoginForm = true;
         }
@@ -16,12 +17,16 @@ angular.module('starter.controllers', ['ngMessages'])
             }, function(error, authData) {
                 if (error === null) {
                     //console.log("User ID: " + authData.uid + ", Provider: " + authData.provider);
-                    $scope.user = fireBaseData.ref().getAuth();                 
+                    $scope.user = fireBaseData.ref().getAuth();    
+                    $rootScope.user = fireBaseData.ref().getAuth();       
+                    fireBaseData.setCurrentUser($scope.user); 
+                    $rootScope.$broadcast('user', $scope.user);      
                     $scope.showLoginForm = false;                 
                     $scope.$apply();
                     $scope.goMyRdv();
                    
                 } else {
+                    $scope.showErrorConnect = true;
                     console.log("Error authenticating user:", error);
                 }
             });
@@ -57,20 +62,21 @@ angular.module('starter.controllers', ['ngMessages'])
 
 // controlleur de gestion des utilisateurs
 .controller('UserCtrl', function($scope, fireBaseData, $firebase, $state) {
-
-           fireBaseData.ref().on("value", function(snapshot) {
-            $scope.users = snapshot.child('users').val();
+          
+          $scope.loading = true;
+          fireBaseData.getUsers().on("value", function(snapshot) {
+            $scope.users   = snapshot.val();
             $scope.nbUsers = Object.keys($scope.users).length;
+            $scope.loading = false;
           }, function (errorObject) {
             console.log("The read failed: " + errorObject.code);
           });
-
-
-          $scope.creatUser = function(ref, civilite, nom, prenom, tel, em){
+         
+        $scope.creatUser = function(ref, civilite, nom, prenom, tel, em){
             var newUser = {
-              email: em,
-              password: nom,
-              profile: {
+                email: em,
+                password: tel,
+                profile: {
                 reference: ref,
                 civilite: civilite,
                 nom: nom,
@@ -78,13 +84,14 @@ angular.module('starter.controllers', ['ngMessages'])
                 telephone: tel
               },
               groupe: "patient",
-              rdv:// [
+              rdv: {
+                20160415:
                 {
-                    date: "200320161415",
+                    date: "15/04/2016",
                     todo: "carie",
                     duree: "30min"
                 }
-              //]
+              }
             };
             fireBaseData.ref().createUser({email: newUser.email, password:newUser.password}, function(error, userData) {
 
@@ -101,33 +108,35 @@ angular.module('starter.controllers', ['ngMessages'])
                   }
                 }else{
                     newUser.id = userData.uid;
-                    return fireBaseData.refUsers().push(newUser);
+
+                    if(fireBaseData.getUsers().push(newUser)){
+                       $state.go('listUser');
+                    }
+                    
                 }
             }); 
         }
 
-        
-        
-          $scope.getListUsers = function() {
-            console.log(fireBaseData.refData());
-            var users = fireBaseData.userData();
-            console.log(users);
-            users.forEach(function(idUser, user) {
-               console.log(idUser, user);
-            });
-
-          }
-
-          
-
-  
+         
         $scope.edit = function(item) {
           alert('Edit Item: ' + item.id);
         };
 
+      
+
 })
 
 // controlleur de gestion des rdv
-.controller('RdvCtrl', function($scope, fireBaseData, $firebase, $state) {
+.controller('rdvCtrl', function($scope, $rootScope, fireBaseData, $firebase, $state) {
+  $scope.loading = true;
+  $scope.nbRdvs = 0;
+  currentUser = fireBaseData.ref().getAuth();
+  console.log(currentUser.uid);
+   fireBaseData.getUsers().orderByChild("id").equalTo(currentUser.uid).on("child_added", function(snapshot) {
+      $scope.rdvs = snapshot.val().rdv;
+      $scope.nbRdvs = Object.keys($scope.rdvs).length;
+      console.log($scope.rdvs,snapshot.val() );
+      $scope.loading = false;
+  });
 
 });
