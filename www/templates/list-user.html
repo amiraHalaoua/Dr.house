@@ -1,0 +1,49 @@
+  <ion-view  title="Liste des patients">
+
+    <ion-content has-header="true" > 
+
+      <div class="item item-text-wrap">
+          <span class="rounded" >{{nbUsers}}</span> patients.       
+      </div>
+      <div ng-show="loading" class="loading"><span class="ui-icon ui-icon-loading spin">LOADING...</span></div>
+      <ion-list ng-show="!loading" >
+        <ion-item ng-repeat="(idUser, user) in users" type="item-text-wrap" class="item-button-right">
+         	<h2>{{user.profile.civilite}} {{user.profile.nom}} {{user.profile.prenom}}</h2>
+  	     <p>{{user.email}}</p>
+         <button class="button icon-right ion-clipboard button-outline button-assertive" ng-click=detail(user.id)></button>
+        </ion-item>
+
+      </ion-list>
+     
+    </ion-content>
+  <!-- modal détail user -->
+        <script id="myModal.html" type="text/ng-template">
+        <ion-modal-view style="width: 90%; height: 90%; top: 5%; left: 5%; right: 5%; bottom: 5%;">
+          <ion-header-bar class="bar-assertive">
+            <h1 class="title">Ref: {{ref}}</h1>
+          </ion-header-bar>
+
+          <ion-content>
+              <div class="card">
+
+                <div class="item item-divider">
+                  Informations 
+                </div>
+                <label for="nom">Nom : {{ nom }}</label><br>
+                <label for="prenom" class="alignForm"> Prènom :  {{ prenom }}</label><br>
+                <label for="telephone"> Télèphone :  {{ tel }}</label><br>
+                <label for="email"> Email :  {{ email }}</label>            
+
+                <div class="item item-divider">
+                  Historique des RDVs
+                </div>
+                <ion-item ng-if="rdv.doing" ng-repeat="(id, rdv) in rdvs" type="item-text-wrap">
+                  <h2>{{rdv.date | date:'yyyy-MM-dd HH:mm:ss'}}</h2>
+                  <p>{{rdv.doing}}</p>
+                </ion-item>
+              </div>
+                
+          </ion-content>
+        </ion-modal-view>
+      </script>
+    </ion-view>

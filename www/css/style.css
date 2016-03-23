@@ -80,4 +80,6 @@ label.item.valid-lr {
   padding: 2px 0 2px 16px;
   color: #CE2F45;
 }
-/*==================================*/
+.center{
+     text-align:center;
+}
