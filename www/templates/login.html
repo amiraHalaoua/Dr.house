@@ -1,9 +1,10 @@
 <ion-view title="Connectez-vous">
   
   <ion-nav-buttons side="right">
-      <button class="button ion-ios-alarm-outline" ng-click="goMyRdv()">
+      <button ng-show="user.password.email != 'secretaire@gmail.com'" class="button ion-ios-alarm-outline" ng-click="goMyRdv()">
           Rendez-vous
       </button>
+      <a ng-show="user.password.email == 'secretaire@gmail.com'" class="button button-halfwidth pull-right" nav-clear ui-sref="app.agenda">Rendez-vous</a>
   </ion-nav-buttons>
 
   <ion-content>
@@ -13,7 +14,7 @@
       </div>
     </div>
 
-    <p ng-hide="showErrorConnect" class="form-error">
+    <p ng-show="showErrorConnect" class="form-error">
       <i class="ion-information-circled form-error"></i>  
       Ces données ne correspond à aucun utilisateur
     </p>
@@ -52,7 +53,7 @@
 
         <div class="row">
           <div class="col text-center">
-            <button class="button button-outline button-assertive" ng-disabled="signinForm.$invalid" ng-click="login(em, pwd)">
+            <button class="button button-outline button-assertive" ng-disabled="signinForm.em.$invalid" || ng-disabled="signinForm.pwd.$invalid"  ng-click="login(em, pwd)">
               <span class="ion-unlocked"></span> Se connecter
             </button>
           </div>
@@ -68,14 +69,11 @@
      
       <div class="row">
         <div class="col text-center">
-          <button class="button button-outline button-assertive" ng-click="logout()" ng-hide="showLoginForm">
+          <button class="button button-outline button-assertive" ng-click="logout()" ng-hide="showLoginForm" >
             <span class="ion-locked"></span> Se déconnecter
           </button>
         </div>
       </div>
-    </form>
-    <button class="button button-positive" ng-click="goUser()">ajouter user</button>
-    <button class="button button-positive" ng-click="goListUser()">list user</button>
+    </form>    
   </ion-content>
 </ion-view>
- 

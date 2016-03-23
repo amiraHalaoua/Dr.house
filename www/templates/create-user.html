@@ -1,0 +1,75 @@
+<ion-view title="Ajouter un patient">
+
+  <ion-content class="has-header">
+    <form name="myNewUser">
+      <label class="item item-input">
+        <span class="input-label">Reference</span>
+        <input type="text" name="ref" ng-model="ref" required/>
+      </label>
+      <br>
+      <p  ng-show="myNewUser.ref.$touched && myNewUser.ref.$error.required" class="form-error">
+        <i class="ion-information-circled form-error"></i>  
+        Ce champ est obligatoire
+      </p>
+      <label class="item i && tem-input item-select">
+        <span class="input-label">Civilité</span>
+        <select ng-model="civilite" name="civil" required>
+          <option selected>Mr</option>
+          <option>Mme</option>
+          <option>Mlle</option>
+          <option>Enfant</option>
+        </select>
+      </label>
+      <br>
+      <p ng-show="myNewUser.civil.$touched && myNewUser.civil.$error.required" class="form-error">
+        <i class="ion-information-circled form-error"></i>  
+        Ce champ est obligatoire
+      </p>
+      <label class="item item-input">
+        <span class="input-label">Nom</span>
+        <input type="text" name="nom" ng-model="nom" required/>
+      </label>
+      <br>
+      <p ng-show="myNewUser.nom.$touched && myNewUser.nom.$error.required" class="form-error">
+        <i class="ion-information-circled form-error"></i>  
+        Ce champ est obligatoire
+      </p>
+      <label class="item item-input">
+        <span class="input-label">Prénom</span>
+        <input type="text" name="prenom" ng-model="prenom" required/>
+      </label>
+      <br>
+      <p ng-show="myNewUser.prenom.$touched && myNewUser.prenom.$error.required" class="form-error">
+        <i class="ion-information-circled form-error"></i>  
+        Ce champ est obligatoire
+      </p>
+      <label class="item item-input">
+        <span class="input-label">Télèphone</span>
+        <input type="tel" name="tel" ng-model="tel" required/>
+      </label>
+      <br>
+      <p ng-show="myNewUser.tel.$touched && myNewUser.tel.$error.required" class="form-error">
+        <i class="ion-information-circled form-error"></i>  
+        Ce champ est obligatoire
+      </p>
+      <label class="item item-input">
+        <span class="input-label">Email</span>
+        <input type="text" name="em" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" ng-model="em" required/>
+      </label>
+      <br>
+        <p ng-show="myNewUser.em.$touched && signinForm.em.$error.required" class="form-error">
+          <i class="ion-information-circled form-error"></i>  
+          Ce champ est obligatoire
+        </p>
+        <p ng-show="signinForm.em.$invalid && !signinForm.em.$pristine" class="form-error">
+          <i class="ion-information-circled form-error"></i>  
+          Ce champ est invalid (exemple@exemple.com)
+        </p>
+
+      <button class="button button-outline button-assertive" type="submit" 
+      	ng-disabled="signinForm.nom.$invalid || signinForm.prenom.$invalid || signinForm.ref.$invalid ||signinForm.civil.$invalid || signinForm.tel.$invalid signinForm.em.$invalid || myNewUser.tel.$invalid" ng-click="creatUser(formUser, ref, civilite, nom, prenom, tel, em)">Valider
+        </button>
+    </form> 
+    
+  </ion-content>
+</ion-view>

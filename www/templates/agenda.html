@@ -1,0 +1,58 @@
+<ion-view view-title={{viewTitle}} >
+        <ion-nav-buttons side="right">
+            <button class="button" ng-disabled="isToday()" ng-click="today()">Aujourd'hui</button>
+            <button class="button" ng-click="changeMode('month')">Mois</button>
+            <button class="button" ng-click="changeMode('week')">Sem</button>
+            <button class="button" ng-click="changeMode('day')">Jour</button>
+            <button class="button" ng-click="loadEvents()">Chargement rdv</button>
+        </ion-nav-buttons>
+
+        <ion-content scroll="false" class="main-content">
+            <calendar ng-model="calendar.currentDate" calendar-mode="calendar.mode" event-source="calendar.eventSource"
+                      range-changed="reloadSource(startTime, endTime)"
+                      event-selected="onEventSelected(event)" title-changed="onViewTitleChanged(title)"
+                      time-selected="onTimeSelected(selectedTime)" step="30">
+            </calendar>
+        </ion-content>
+        <!-- modal creation rdv -->
+        <script id="my-modal.html" type="text/ng-template">
+        <ion-modal-view style="width: 90%; height: 90%; top: 5%; left: 5%; right: 5%; bottom: 5%;">
+          <ion-header-bar class="bar-assertive">
+            <h1 class="title">Ajouter un Nouveau RDV</h1>
+          </ion-header-bar>
+
+          <ion-content>
+              <form name="rdv">
+                <div class="row">
+                  <div class="col col-33">
+                    <label class="item item-input">
+                      <span class="input-label">De : </span>
+                      <input type="time" name="rdvstarttime" value="{{startTime}}" ng-model="rdvstarttime"/>
+                    </label>
+                  </div>
+                  <div class="col col-33 col-offset-33" >
+                    <label class="item item-input">
+                      <span class="input-label">A : </span>
+                      <input type="time" name="rdvendtime" value="{{endTime}}" ng-model="rdvendtime"/>
+                    </label> 
+                  </div>
+                </div>
+                 <label class="item item-input item-select">
+                  <div class="input-label">Nom patient : </div>
+                  <div ng-controller="UserCtrl">
+                    <select ng-model="patient" name="patient" ng-options="user.id as (user.profile.nom+' '+user.profile.prenom) for user in users">
+                        <option value="">-- Nom Prénom --</option>
+                    </select >
+                  </div>
+                </label>
+                <label class="item item-input">
+                  <span class="input-label">Conseil</span>
+                  <input type="text" name="conseil" value="{{conseil}}" ng-model="conseil" required/>
+                </label>
+                <br>
+                <input class="button button-outline button-assertive center" value="create" ng-click="createEvent(rdv)" />
+              </from>
+          </ion-content>
+        </ion-modal-view>
+      </script>
+    </ion-view>
