@@ -57,17 +57,17 @@
         <input type="text" name="em" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" ng-model="em" required/>
       </label>
       <br>
-        <p ng-show="myNewUser.em.$touched && signinForm.em.$error.required" class="form-error">
+        <p ng-show="myNewUser.em.$touched && myNewUser.em.$error.required" class="form-error">
           <i class="ion-information-circled form-error"></i>  
           Ce champ est obligatoire
         </p>
-        <p ng-show="signinForm.em.$invalid && !signinForm.em.$pristine" class="form-error">
+        <p ng-show="myNewUser.em.$invalid && !myNewUser.em.$pristine" class="form-error">
           <i class="ion-information-circled form-error"></i>  
           Ce champ est invalid (exemple@exemple.com)
         </p>
 
       <button class="button button-outline button-assertive" type="submit" 
-      	ng-disabled="signinForm.nom.$invalid || signinForm.prenom.$invalid || signinForm.ref.$invalid ||signinForm.civil.$invalid || signinForm.tel.$invalid signinForm.em.$invalid || myNewUser.tel.$invalid" ng-click="creatUser(formUser, ref, civilite, nom, prenom, tel, em)">Valider
+      	ng-disabled="myNewUser.nom.$invalid || myNewUser.prenom.$invalid || myNewUser.ref.$invalid || myNewUser.civil.$invalid || myNewUser.em.$invalid || myNewUser.tel.$invalid" ng-click="creatUser(ref, civilite, nom, prenom, tel, em)">Valider
         </button>
     </form> 
     

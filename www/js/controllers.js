@@ -35,6 +35,7 @@ angular.module('starter.controllers', ['ui.rCalendar', 'ui.calendar'])
         $scope.logout = function () {
             fireBaseData.ref().unauth();
             $scope.showLoginForm = true;
+            $state.go('login');
         };
 
         $scope.goUser = function(){
@@ -42,7 +43,7 @@ angular.module('starter.controllers', ['ui.rCalendar', 'ui.calendar'])
         };
 
         $scope.goListUser = function(){
-           $state.go('listUser');
+           $state.go('list-patient');
         };
 
         $scope.goCalendar = function(){
@@ -108,7 +109,7 @@ angular.module('starter.controllers', ['ui.rCalendar', 'ui.calendar'])
                     newUser.id = userData.uid;
                     console.log(newUser);
                     if(fireBaseData.getUsers().push(newUser)){
-                       $state.go('listUser');
+                       $state.go('list-patient');
                     }
                     
                 }
@@ -232,7 +233,7 @@ angular.module('starter.controllers', ['ui.rCalendar', 'ui.calendar'])
         var date = new Date($scope.selectedDate); // Mon Mar 21 2016 12:00:00 GMT+0100 (Paris, Madrid)
         var startTime = Math.floor(new Date(date.getFullYear(), date.getMonth(), date.getDate() , rdv.rdvstarttime.$viewValue.split(':')[0], rdv.rdvstarttime.$viewValue.split(':')[1]).getTime() / 1000);
         var endTime = Math.floor(new Date(date.getFullYear(), date.getMonth(), date.getDate() , rdv.rdvendtime.$viewValue.split(':')[0], rdv.rdvendtime.$viewValue.split(':')[1]).getTime() / 1000);
-         var duree = (endTime - startTime) / 60000;
+        var duree = (endTime - startTime) / 60;
         var idpatient = rdv.patient.$viewValue;
          var patientName  = '';
          fireBaseData.getUsers().orderByChild("id").equalTo(idpatient).on("child_added", function(snapshot) {

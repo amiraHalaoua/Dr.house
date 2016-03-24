@@ -35,56 +35,9 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     })
 
  
-// *********       menu secretaire      ****************
+// *********       menu    ****************
 
 
-  
-
-//************ tabs ***********************
-
-    .state('logout', {
-      url: '/logout',
-      views: {
-        'logout': {
-          templateUrl: 'templates/login.html'
-        }
-      }
-    })
-
-    .state('tab.siteweb', {
-      url: '/siteWeb',
-      views: {
-        'tab-siteWeb': {
-          templateUrl: 'templates/tab-siteWeb.html'
-        }
-      }
-    })
-//*****************************************
-     /*  .state('snd', {
-                url : '/snd',
-                templateUrl : 'snd-abstract.html',
-                abstract : true,
-                controller : 'SndController'
-            })
-            .state('snd.home', {
-                url: '/home',
-                views: {
-                    'snd': {
-                        templateUrl: 'snd-home.html',
-                        controller : 'SndHomePageController'
-                    }
-                }
-            })
-            .state('snd.drink', {
-                url: '/drink',
-                views: {
-                    'snd': {
-                        templateUrl: 'snd-drink.html',
-                        controller : 'SndDrinkPageController'
-                    }
-                }
-            })
-*/
 .state('app', {
     url: '/app',
     abstract: true,
@@ -112,8 +65,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     })
 
-  .state('app.createuser', {
-      url: '/createuser',
+  .state('app.add-user', {
+      url: '/add-user',
       views: {
         'menuContent': {
           templateUrl: 'templates/create-user.html',
@@ -121,6 +74,29 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       }
     })
+
+//************ tabs ***********************
+
+    .state('logout', {
+      url: '/logout',
+      views: {
+        'logout': {
+          templateUrl: 'templates/login.html',
+          controller: 'AccountCtrl'
+        }
+      }
+    })
+
+    .state('tab.siteweb', {
+      url: '/siteWeb',
+      views: {
+        'tab-siteWeb': {
+          templateUrl: 'templates/tab-siteWeb.html'
+        }
+      }
+    })
+//*****************************************
+
 });
 
 
