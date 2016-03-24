@@ -38,7 +38,7 @@
                   Historique des RDVs
                 </div>
                 <ion-item ng-if="rdv.doing" ng-repeat="(id, rdv) in rdvs" type="item-text-wrap">
-                  <h2>{{rdv.date | date:'yyyy-MM-dd HH:mm:ss'}}</h2>
+                  <h2>{{rdv.end*1000 | date:'yyyy-MM-dd HH:mm:ss'}}</h2>
                   <p>{{rdv.doing}}</p>
                 </ion-item>
               </div>

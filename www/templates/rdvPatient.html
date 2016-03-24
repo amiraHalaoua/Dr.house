@@ -12,9 +12,10 @@
     <div ng-show="loading" class="loading"><span class="ui-icon ui-icon-loading spin">LOADING...</span></div>
     <ion-list ng-show="!loading" >
       <ion-item ng-repeat="rdv in rdvs" type="item-text-wrap">
-        Date:<b> {{rdv.date}} </b> 
-        <p>conseil: {{rdv.conseil}}</b>
+
+        Date:<b>{{rdv.date*1000 | date:'yyyy-MM-dd HH:mm:ss' }} </b> 
        <p>d'une durée de {{rdv.duree}} min</p>
+       <p>conseil: {{rdv.conseil}}</p>
       </ion-item>
     </ion-list>
 
